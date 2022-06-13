@@ -1,52 +1,32 @@
-// activity variables
-const activityItem = document.querySelectorAll("[data-activity-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
-const modalTitle = document.querySelector("[data-modal-title]");
-
-// modal variable
-// modal toggle function
-const activityModalFunccc = function () {
-    modalContainer.classList.toggle("active");
-    overlay.classList.toggle("active");
-
+var ready1 = document.getElementById("preloader");
+var loading = document.querySelector(".loader");
+window.addEventListener('DOMContentLoaded', ready);
+function ready() {
+    var percent = document.querySelector('.percent');
+    var progress = document.querySelector('.progress');
+    var count = 4;
+    var per = 16;
+    var loading = setInterval(animate, 50);
+    function animate() {
+      if (count == 100 && per == 400) {
+        ready1.classList.add("complete");
+        clearInterval(loading);
+      } else {
+        per = per + 4;
+        count = count + 1;
+        progress.style.width = per + 'px';
+        percent.textContent = count + '%';
+      }
+    }
 }
 
-// add click event to all modal items
-for (let i = 0; i < activityItem.length; i++) {
+const countEl = document.getElementById("count");
+countvisits();
 
-    activityItem[i].addEventListener("click", function () {
-        modalTitle.innerHTML = this.querySelector("[data-activity-title]").innerHTML;
-        const myCustomSlider = document.querySelectorAll('.mySwiper');
-        const pagination = document.querySelectorAll('.swiper-pagination');
-        const next = document.querySelectorAll('.swiper-button-next');
-        const prev = document.querySelectorAll('.swiper-button-prev');
-
-
-        for (i = 0; i < myCustomSlider.length; i++) {
-
-            myCustomSlider[i].classList.add('mySwiper-' + i);
-            pagination[i].classList.add('swiper-pagination-' + i);
-            next[i].classList.add('swiper-button-next-' + i);
-            prev[i].classList.add('swiper-button-prev-' + i);
-
-
-            new Swiper('.mySwiper-' + i, {
-                zoom: false,
-                navigation: {
-                    nextEl: `.swiper-button-next-${i}`,
-                    prevEl: `.swiper-button-prev-${i}`,
-                },
-                pagination: {
-                    el: `.swiper-pagination-${i}`,
-                    clickable: true,
-                },
-            });
-        }
-        activityModalFunccc();
-    });
-
-}
-modalCloseBtn.addEventListener("click", activityModalFunccc);
-overlay.addEventListener("click", activityModalFunccc);
+// function countvisits() {
+//   fetch('https://api.countapi.xyz/update/spacestudio/studio/?amount=1')
+//     .then((res) => res.json())
+//     .then((res) => {
+//       countEl.innerHTML = res.value;
+//     });
+// }
